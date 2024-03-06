@@ -14,9 +14,11 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        try (PrintWriter w = resp.getWriter()) {
-            w.println("Hello from Java");
-        }
+        HashMap<String, Object> data = new HashMap<>(3);
+        data.put("id", 12L);
+        data.put("name", "Vadym");
+        data.put("img_url", "https://html.com/wp-content/uploads/flamingo.jpg");
+        templateEngine.render("users.ftl", data, resp);
     }
 
 }
