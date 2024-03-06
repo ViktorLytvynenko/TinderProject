@@ -1,5 +1,7 @@
 package servlets;
 
+import utils.TemplateEngine;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
-@WebServlet(name="test")
 public class TestServlet extends HttpServlet {
+    private final TemplateEngine templateEngine = TemplateEngine.resources("/templates");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
