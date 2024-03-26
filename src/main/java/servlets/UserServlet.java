@@ -17,6 +17,11 @@ import java.util.Optional;
 public class UserServlet extends HttpServlet {
     private final UserDao userDao;
     private final TemplateEngine templateEngine = TemplateEngine.resources("/templates");
+
+    public UserServlet(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Optional<User> unvotedUser = userDao.getUnvotedUser(1L);
@@ -24,9 +29,9 @@ public class UserServlet extends HttpServlet {
         if (unvotedUser.isPresent()) {
             User user = unvotedUser.get();
             HashMap<String, Object> data = new HashMap<>(3);
-            data.put("id", 12L);
-            data.put("name", "Vadym");
-            data.put("img_url", "https://html.com/wp-content/uploads/flamingo.jpg");
+            data.put("id", user.getId());
+            data.put("name", user.getName());
+            data.put("img_url", user.getPhoto());
             templateEngine.render("users.ftl", data, resp);
         } else {
             resp.sendRedirect("/liked");

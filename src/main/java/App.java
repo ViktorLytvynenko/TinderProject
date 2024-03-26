@@ -60,6 +60,7 @@ function map(value) {
 
 
 public class App {
+
     public static void main(String[] args) throws Exception {
         int port = 8082;
         Server server = new Server(port);
