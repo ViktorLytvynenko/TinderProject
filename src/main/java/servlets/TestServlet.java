@@ -23,5 +23,4 @@ public class TestServlet extends HttpServlet {
         data.put("img_url", "https://html.com/wp-content/uploads/flamingo.jpg");
         templateEngine.render("users.ftl", data, resp);
     }
-
 }
