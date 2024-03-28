@@ -1,12 +1,13 @@
 version: '3'
 services:
   dbService:
-    image: mysql
+    image: postgres
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: user
-    command: --default-authentication-plugin=mysql_native_password
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345User
     volumes:
-      - ./db-data:/var/lib/mysql
+      - ./db-data:/var/lib/postgresql-data
     ports:
-      - 3306:3306
+      - 5432:5432

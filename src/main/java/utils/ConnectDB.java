@@ -1,6 +1,8 @@
 package utils;
 
-import com.mysql.jdbc.Driver;
+
+import org.postgresql.Driver;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -21,6 +23,6 @@ public class ConnectDB {
     }
 
     public static Optional<Connection> get() {
-        return get("jdbc:mysql://localhost:3306", "root", "user");
+        return get("jdbc:postgresql://localhost:5432/db", "postgres", "12345User");
     }
 }

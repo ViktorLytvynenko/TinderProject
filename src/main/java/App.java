@@ -3,6 +3,7 @@ import entity.User;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import servlets.LikedServlet;
 import servlets.TestServlet;
 import servlets.UserServlet;
 import utils.ConnectDB;
@@ -69,14 +70,14 @@ public class App {
         UserDao userDao = new UserDao();
 
 
-
 ////добавление строки
 //        connection.map(con -> {
 //            try {
 //                //1 шаг создание запроса
-//                PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO tinder.users (name) VALUES (?)");
+//                PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO users (name, photo) VALUES (?, ?)");
 //                //2 шаг добавление данных к запросу. Пропускаем пока.
 //                preparedStatement.setString(1, "Violetta");
+//                preparedStatement.setString(2, "");
 //                preparedStatement.execute();
 //            } catch (SQLException e) {
 //                throw new RuntimeException(e);
@@ -87,7 +88,7 @@ public class App {
 //        connection.map(con -> {
 //            try {
 //                //1 шаг создание запроса
-//                PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM tinder.users");
+//                PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM users");
 //                //2 шаг добавление данных к запросу. Пропускаем пока.
 //                //3 шаг выполнение запроса
 //                ResultSet resultSet = preparedStatement.executeQuery();
@@ -106,6 +107,7 @@ public class App {
         handler.addServlet(servlets.TestServlet.class, "/test");
         handler.addServlet(new ServletHolder(servlets.FileServlet.class), "/assets/*");
         handler.addServlet(new ServletHolder(new UserServlet(userDao)), "/users");
+        handler.addServlet(new ServletHolder(new LikedServlet(userDao)), "/liked");
 
         server.setHandler(handler);
 
