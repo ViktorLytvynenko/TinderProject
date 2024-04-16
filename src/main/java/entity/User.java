@@ -7,6 +7,8 @@ public class User {
     private Long id;
     private String name;
     private String photo;
+    private String email;
+    private String password;
 
     public User() {
     }
@@ -41,10 +43,29 @@ public class User {
         this.photo = photo;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public static User resultSetToUser(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setId(resultSet.getLong(1));
         user.setName(resultSet.getString(2));
+        user.setPhoto(resultSet.getString(3));
+        user.setEmail(resultSet.getString(4));
+        user.setPassword(resultSet.getString(5));
         return user;
     }
 

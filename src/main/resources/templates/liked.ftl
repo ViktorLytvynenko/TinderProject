@@ -8,12 +8,13 @@
     <link rel="icon" href="img/favicon.ico">
 
     <title>People list</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="/assets/style.css" type="text/css">
 </head>
 <body>
 
@@ -28,74 +29,26 @@
                     <div class="table-container">
                         <table class="table-users table" border="0">
                             <tbody>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
+                            <#list likedUsers as user>
+                                <tr onclick="window.open('/messages/${user.getId()}', '_self')">
+                                    <td width="10">
+                                        <div class="avatar-img">
+                                            <img class="img-circle" alt="${user.getName()}" title="${user.getName()}"
+                                                 src="${user.getPhoto()}"/>  
+                                        </div>
 
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
-
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
-
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
-
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="align-middle">
+                                        ${user.getName()}
+                                    </td>
+                                    <td class="align-middle">
+                                        Builder Sales Agent
+                                    </td>
+                                    <td class="align-middle">
+                                        Last Login: 6/10/2017<br><small class="text-muted">5 days ago</small>
+                                    </td>
+                                </tr>
+                            </#list>
                             </tbody>
                         </table>
                     </div>

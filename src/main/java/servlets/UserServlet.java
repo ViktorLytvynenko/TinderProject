@@ -1,12 +1,12 @@
 package servlets;
 
-import dao.UserDao;
+
+import dao.UserDaoSQL;
 import entity.User;
 import entity.Vote;
 import utils.Params;
 import utils.TemplateEngine;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,16 +15,17 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class UserServlet extends HttpServlet {
-    private final UserDao userDao;
+    private final UserDaoSQL userDaoSQL;
     private final TemplateEngine templateEngine = TemplateEngine.resources("/templates");
 
-    public UserServlet(UserDao userDao) {
-        this.userDao = userDao;
+    public UserServlet(UserDaoSQL userDaoSQL) {
+        this.userDaoSQL = userDaoSQL;
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<User> unvotedUser = userDao.getUnvotedUser(1L);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        User sessionUser = (User) req.getSession().getAttribute("user");
+        Optional<User> unvotedUser = userDaoSQL.getUnvotedUser(sessionUser.getId());
 
         if (unvotedUser.isPresent()) {
             User user = unvotedUser.get();
@@ -39,16 +40,17 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        User sessionUser = (User) req.getSession().getAttribute("user");
         Optional<Long> userId = Params.getLongParam("userId", req);
         Optional<String> vote = Params.getStrParam("vote", req);
 
         vote.map(Boolean::valueOf)
                 .map(v ->
                         userId.map(id -> {
-                            Vote voteUser = new Vote(1L, id, v);
+                            Vote voteUser = new Vote(sessionUser.getId(), id, v);
                             System.out.println("User id: " + id + " Vote result: " + v);
-                            userDao.setVote(voteUser);
+                            userDaoSQL.saveVote(voteUser);
                             return id;
                         }));
         resp.sendRedirect("/users");
