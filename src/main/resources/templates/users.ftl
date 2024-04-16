@@ -1,29 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="assets/bootstrap.min.css" type="text/css">
-    <title>Users</title>
-</head>
-<body>
-<div class="container">
-    <form class="users" method="post" action="/users?userId=${id}">
-        <p>${name}</p>
-        <img src="${img_url}" alt="photo" title="photo">
-        <button type="submit" name="vote" value="true">Yes</button>
-        <button type="submit" name="vote" value="false">No</button>
-    </form>
-</div>
-</body>
-
-</html>
-
-<!doctype html>
-<html lang="en">
-<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -33,34 +10,34 @@
     <title>Like page</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body style="background-color: #f5f5f5;">
 
 <div class="col-4 offset-4">
-    <div class="card">
+    <form class="card" method="post" action="/users?userId=${id}">
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-lg-12 col-md-12 text-center">
-                    <img src="https://robohash.org/68.186.255.198.png" alt="" class="mx-auto rounded-circle img-fluid">
-                    <h3 class="mb-0 text-truncated">User name</h3>
+                    <img src="${img_url}" alt="${name}" title="${name}" class="mx-auto rounded-circle img-fluid">
+                    <h3 class="mb-0 text-truncated">${name}</h3>
                     <br>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <button type="button" class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span> Dislike</button>
+                    <button type="submit" name="vote" value="false" class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span> Dislike</button>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <button class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like</button>
+                    <button type="submit" name="vote" value="true" class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like</button>
                 </div>
                 <!--/col-->
             </div>
             <!--/row-->
         </div>
         <!--/card-block-->
-    </div>
+    </form>
 </div>
 
 </body>
