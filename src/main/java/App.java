@@ -20,7 +20,7 @@ import java.util.Optional;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        int port = Integer.parseInt(System.getenv("PORT"));
+        int port = 8082;
         Server server = new Server(port);
         ServletContextHandler handler = new ServletContextHandler();
         final Optional<Connection> connection = ConnectDB.get();
