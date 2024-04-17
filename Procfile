@@ -1,1 +1,1 @@
-web: java -jar target/TinderProject-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+web: mvn clean package && java -jar target/TinderProject-1.0.0-SNAPSHOT-jar-with-dependencies.jar
