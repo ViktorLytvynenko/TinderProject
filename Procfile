@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/deps/* App
+web: mvn clean package && java -jar ./target/TinderProject-1.0.0-SNAPSHOT-jar-with-dependencies.jar
