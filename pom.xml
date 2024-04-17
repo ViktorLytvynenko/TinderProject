@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>war</packaging>
 
     <groupId>org.example</groupId>
     <artifactId>TinderProject</artifactId>
@@ -17,6 +18,20 @@
     <build>
         <finalName>webappRunnerSample</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>default-war</id>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -40,8 +55,6 @@
             </plugin>
         </plugins>
     </build>
-
-
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
