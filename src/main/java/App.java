@@ -27,7 +27,7 @@ public class App {
         Server server = new Server(Port);
 
 //        контроллер версиями базы данных
-//        ConnectDB.migrateDatabase();
+        ConnectDB.migrateDatabase();
 
         ServletContextHandler handler = new ServletContextHandler();
 
