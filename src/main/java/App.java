@@ -23,7 +23,7 @@ public class App {
         int port = Integer.parseInt(System.getenv("PORT"));
         Server server = new Server(port);
 
-        ConnectDB.migrateDatabase();
+//        ConnectDB.migrateDatabase();
 
         ServletContextHandler handler = new ServletContextHandler();
         final Optional<Connection> connection = ConnectDB.get();
