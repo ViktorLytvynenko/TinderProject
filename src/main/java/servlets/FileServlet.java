@@ -15,7 +15,7 @@ public class FileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         ClassLoader classLoader = this.getClass().getClassLoader();
         String requestURI = req.getRequestURI(); // getting this part of url /assets/css/style.css
         System.out.println("Request URI: " + requestURI);
@@ -26,7 +26,7 @@ public class FileServlet extends HttpServlet {
             byte[] bytes = is.readAllBytes();
             os.write(bytes);
         } catch (NullPointerException ex) {
-            resp.setStatus(404);
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }
