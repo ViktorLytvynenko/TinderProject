@@ -20,15 +20,26 @@ import java.util.Optional;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        int port = Integer.parseInt(System.getenv("PORT"));
-        Server server = new Server(port);
+//        int Port = Integer.parseInt(System.getenv("PORT"));
 
+//      локальный порт
+        int Port = 8082;
+        Server server = new Server(Port);
+
+//        контроллер версиями базы данных
 //        ConnectDB.migrateDatabase();
 
         ServletContextHandler handler = new ServletContextHandler();
-        final Optional<Connection> connection = ConnectDB.get();
+
+        Optional<Connection> connectionOptional = ConnectDB.get();
+        if (connectionOptional.isPresent()) {
+            Connection connection = connectionOptional.get();
+            connection.setAutoCommit(false);
+        } else {
+            System.out.println("No connection");
+        }
 //        UserDao userDao = new UserDao();
-        UserDaoSQL userDaoSQL = new UserDaoSQL(connection);
+        UserDaoSQL userDaoSQL = new UserDaoSQL(connectionOptional);
 //        userDaoSQL.getUnvotedUser(6L);
 
         SessionHandler sessionHandler = new SessionHandler();
