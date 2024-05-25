@@ -11,11 +11,13 @@ import java.util.Optional;
 import java.util.Properties;
 
 public class ConnectDB {
-//    Heroku
+
+//    Heroku connection
     private static final String DB_URL = "jdbc:postgresql://c6b7lkfdshud3i.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com:5432/d54pg2hiu8b0ve";
     private static final String DB_USERNAME = "ubu9k7bfbdqe3c";
     private static final String DB_PASSWORD = "pdde0c6f9a84518a82c05d2bf63612d054ab994d2c0f8469e7ff9d00413f53c91";
-//    Local
+
+//    Local connection
 //    private static final String DB_URL = "jdbc:postgresql://localhost:5432/db";
 //    private static final String DB_USERNAME = "postgres";
 //    private static final String DB_PASSWORD = "12345User";
