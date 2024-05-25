@@ -111,21 +111,6 @@ public class UserDaoSQL {
         return usersMessages;
     }
 
-    public void addMessageBetweenTwoUsers(Long idFirstUser, Long idSecondUser, String message) {
-        connection.map(con -> {
-            try {
-                PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO public.messages (id_from_user, id_to_user, text) VALUES (?, ?, ?)");
-                preparedStatement.setLong(1, idFirstUser);
-                preparedStatement.setLong(2, idSecondUser);
-                preparedStatement.setString(3, message);
-                preparedStatement.execute();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            return con;
-        });
-    }
-
     public Optional<User> findUserByEmail(String email) {
         return connection.flatMap(con -> {
             try {
@@ -140,6 +125,21 @@ public class UserDaoSQL {
                 return Optional.empty();
             }
             return Optional.empty();
+        });
+    }
+
+    public void addMessageBetweenTwoUsers(Long idFirstUser, Long idSecondUser, String message) {
+        connection.map(con -> {
+            try {
+                PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO public.messages (id_from_user, id_to_user, text) VALUES (?, ?, ?)");
+                preparedStatement.setLong(1, idFirstUser);
+                preparedStatement.setLong(2, idSecondUser);
+                preparedStatement.setString(3, message);
+                preparedStatement.execute();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return con;
         });
     }
 }

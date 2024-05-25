@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-
 public class MessagesServlet extends HttpServlet {
     private final UserDaoSQL userDaoSQL;
     private final TemplateEngine templateEngine = TemplateEngine.resources("/templates");

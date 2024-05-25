@@ -29,6 +29,14 @@ public class UserDao {
         votes.clear();
     }
 
+    public List<User> getLikedUsers(Long currentUserId) {
+        List<Vote> voteStream = votes.stream().filter(v -> {
+            return currentUserId.equals(v.getIdFromUser()) && v.getLike();
+        }).toList();
+        return users.stream().filter(u -> {
+            return voteStream.stream().anyMatch(v -> v.getIdToUser().equals(u.getId()));
+        }).toList();
+    }
     public Optional<User> getUnvotedUser(Long currentUserId) {
         List<Vote> voteStream = votes.stream().filter(v -> {
             return currentUserId.equals(v.getIdFromUser());
@@ -39,14 +47,5 @@ public class UserDao {
             }
             return voteStream.stream().noneMatch(v -> v.getIdToUser().equals(u.getId()));
         }).findFirst();
-    }
-
-    public List<User> getLikedUsers(Long currentUserId) {
-        List<Vote> voteStream = votes.stream().filter(v -> {
-            return currentUserId.equals(v.getIdFromUser()) && v.getLike();
-        }).toList();
-        return users.stream().filter(u -> {
-            return voteStream.stream().anyMatch(v -> v.getIdToUser().equals(u.getId()));
-        }).toList();
     }
 }

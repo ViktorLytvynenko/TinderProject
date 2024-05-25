@@ -42,8 +42,6 @@
         </plugins>
     </build>
 
-
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
         <dependency>

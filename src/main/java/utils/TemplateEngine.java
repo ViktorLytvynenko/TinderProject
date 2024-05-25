@@ -14,7 +14,6 @@ public class TemplateEngine {
 
     private final Configuration conf;
 
-
     private TemplateEngine() throws IOException {
         this.conf = new Configuration(Configuration.VERSION_2_3_29) {{
             setClassLoaderForTemplateLoading(TemplateEngine.class.getClassLoader(), "templates");
