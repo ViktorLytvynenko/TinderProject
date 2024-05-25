@@ -20,10 +20,10 @@ import java.util.Optional;
 public class App {
 
     public static void main(String[] args) throws Exception {
-//        int Port = Integer.parseInt(System.getenv("PORT"));
+        int Port = Integer.parseInt(System.getenv("PORT"));
 
 //      локальный порт
-        int Port = 8082;
+//        int Port = 8082;
         Server server = new Server(Port);
 
 //        контроллер версиями базы данных
