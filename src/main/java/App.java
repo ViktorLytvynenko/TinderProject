@@ -22,6 +22,9 @@ public class App {
     public static void main(String[] args) throws Exception {
         int port = Integer.parseInt(System.getenv("PORT"));
         Server server = new Server(port);
+
+        ConnectDB.migrateDatabase();
+
         ServletContextHandler handler = new ServletContextHandler();
         final Optional<Connection> connection = ConnectDB.get();
 //        UserDao userDao = new UserDao();

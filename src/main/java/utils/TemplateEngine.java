@@ -44,6 +44,15 @@ public class TemplateEngine {
         }
     }
 
+    public void render(String template, HttpServletResponse resp) {
+        resp.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));
+
+        try (PrintWriter w = resp.getWriter()) {
+            conf.getTemplate(template).process(new HashMap<String, Object>(), w);
+        } catch (TemplateException | IOException e) {
+            throw new RuntimeException("Freemarker error", e);
+        }
+    }
 
     public void render(String template, HashMap<String, Object> data, HttpServletResponse resp) {
         resp.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));
