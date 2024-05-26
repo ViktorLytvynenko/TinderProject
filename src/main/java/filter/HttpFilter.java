@@ -25,6 +25,5 @@ public interface HttpFilter extends Filter {
 
     @Override
     default void destroy() {
-
     }
 }
