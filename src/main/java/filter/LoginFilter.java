@@ -17,8 +17,7 @@ public class LoginFilter implements HttpFilter {
         if (rq.getRequestURI().contains("assets/")) {
             chain.doFilter(rq, rs);
             System.out.println('1');
-        }
-        else if (user == null && !rq.getRequestURI().equals(rq.getContextPath() + "/login")) {
+        } else if (user == null && !rq.getRequestURI().equals(rq.getContextPath() + "/login")) {
             System.out.println('2');
             rs.sendRedirect(rq.getContextPath() + "/login");
         } else {

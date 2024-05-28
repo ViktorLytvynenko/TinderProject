@@ -1,4 +1,3 @@
-import dao.UserDao;
 import dao.UserDaoSQL;
 import filter.LoginFilter;
 import org.eclipse.jetty.server.Server;

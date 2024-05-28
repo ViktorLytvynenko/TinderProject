@@ -1,6 +1,5 @@
 package servlets;
 
-import dao.UserDao;
 import dao.UserDaoSQL;
 import entity.User;
 import utils.TemplateEngine;

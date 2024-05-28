@@ -22,7 +22,8 @@ public class FileServlet extends HttpServlet {
         try (
                 ServletOutputStream os = resp.getOutputStream();
                 InputStream is = classLoader.getResourceAsStream(requestURI.substring(1));
-        ) {
+        )
+        {
             byte[] bytes = is.readAllBytes();
             os.write(bytes);
         } catch (NullPointerException ex) {
