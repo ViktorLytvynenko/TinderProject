@@ -1,6 +1,7 @@
 package servlets;
 
 
+import dao.MessageDaoSQL;
 import dao.UserDaoSQL;
 import entity.Message;
 import entity.User;
@@ -18,10 +19,13 @@ import java.util.Optional;
 
 public class MessagesServlet extends HttpServlet {
     private final UserDaoSQL userDaoSQL;
+    private final MessageDaoSQL messageDaoSQL;
+
     private final TemplateEngine templateEngine = TemplateEngine.resources("/templates");
 
-    public MessagesServlet(UserDaoSQL userDaoSQL) {
+    public MessagesServlet(UserDaoSQL userDaoSQL, MessageDaoSQL messageDaoSQL) {
         this.userDaoSQL = userDaoSQL;
+        this.messageDaoSQL = messageDaoSQL;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class MessagesServlet extends HttpServlet {
         HashMap<String, Object> data = new HashMap<>(1);
         User user = userDaoSQL.findUserById(userId).orElseThrow();
         data.put("user", user);
-        List<Message> messagesBetweenTwoUsers = userDaoSQL.getMessagesBetweenTwoUsers(sessionUser.getId(), userId);
+        List<Message> messagesBetweenTwoUsers = messageDaoSQL.getMessagesBetweenTwoUsers(sessionUser.getId(), userId);
         data.put("messages", messagesBetweenTwoUsers);
         templateEngine.render("chat.ftl", data, resp);
     }
@@ -43,7 +47,7 @@ public class MessagesServlet extends HttpServlet {
         Optional<String> someText = Params.getStrParam("someText", req);
         System.out.println(someText + " " + userId);
         someText.map(text -> {
-            userDaoSQL.addMessageBetweenTwoUsers(sessionUser.getId(), userId, text);
+            messageDaoSQL.addMessageBetweenTwoUsers(sessionUser.getId(), userId, text);
             return text;
         });
         resp.sendRedirect("/messages/" + userId);
