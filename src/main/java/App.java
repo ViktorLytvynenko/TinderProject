@@ -1,4 +1,6 @@
+import dao.MessageDaoSQL;
 import dao.UserDaoSQL;
+import dao.VoteDaoSQL;
 import filter.LoginFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.session.SessionHandler;
@@ -40,6 +42,8 @@ public class App {
         }
 //        UserDao userDao = new UserDao();
         UserDaoSQL userDaoSQL = new UserDaoSQL(connectionOptional);
+        MessageDaoSQL messageDaoSQL = new MessageDaoSQL(connectionOptional);
+        VoteDaoSQL voteDaoSQL = new VoteDaoSQL(connectionOptional);
 //        userDaoSQL.getUnvotedUser(6L);
 
         SessionHandler sessionHandler = new SessionHandler();
@@ -48,9 +52,9 @@ public class App {
         handler.addServlet(servlets.TestServlet.class, "/test");
         handler.addServlet(new ServletHolder(servlets.FileServlet.class), "/assets/*");
         handler.addFilter(new FilterHolder(new LoginFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
-        handler.addServlet(new ServletHolder(new UserServlet(userDaoSQL)), "/users");
+        handler.addServlet(new ServletHolder(new UserServlet(userDaoSQL, voteDaoSQL)), "/users");
         handler.addServlet(new ServletHolder(new LikedServlet(userDaoSQL)), "/liked");
-        handler.addServlet(new ServletHolder(new MessagesServlet(userDaoSQL)), "/messages/*");
+        handler.addServlet(new ServletHolder(new MessagesServlet(userDaoSQL, messageDaoSQL)), "/messages/*");
         handler.addServlet(new ServletHolder(new LoginServlet(userDaoSQL)), "/login");
 
         server.setHandler(handler);

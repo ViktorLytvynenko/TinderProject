@@ -2,6 +2,7 @@ package servlets;
 
 
 import dao.UserDaoSQL;
+import dao.VoteDaoSQL;
 import entity.User;
 import entity.Vote;
 import utils.Params;
@@ -16,10 +17,12 @@ import java.util.Optional;
 
 public class UserServlet extends HttpServlet {
     private final UserDaoSQL userDaoSQL;
+    private final VoteDaoSQL voteDaoSQL;
     private final TemplateEngine templateEngine = TemplateEngine.resources("/templates");
 
-    public UserServlet(UserDaoSQL userDaoSQL) {
+    public UserServlet(UserDaoSQL userDaoSQL, VoteDaoSQL voteDaoSQL) {
         this.userDaoSQL = userDaoSQL;
+        this.voteDaoSQL = voteDaoSQL;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class UserServlet extends HttpServlet {
                         userId.map(id -> {
                             Vote voteUser = new Vote(sessionUser.getId(), id, v);
                             System.out.println("User id: " + id + " Vote result: " + v);
-                            userDaoSQL.saveVote(voteUser);
+                            voteDaoSQL.saveVote(voteUser);
                             return id;
                         }));
         resp.sendRedirect("/users");

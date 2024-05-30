@@ -1,8 +1,6 @@
 package dao;
 
-import entity.Message;
 import entity.User;
-import entity.Vote;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,21 +33,6 @@ public class UserDaoSQL {
             } catch (SQLException e) {
                 return Optional.empty();
             }
-        });
-    }
-
-    public void saveVote(Vote vote) {
-        connection.map(con -> {
-            try {
-                PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO public.votes (id_from_user, id_to_user, is_like) VALUES (?, ?, ?)");
-                preparedStatement.setLong(1, vote.getIdFromUser());
-                preparedStatement.setLong(2, vote.getIdToUser());
-                preparedStatement.setBoolean(3, vote.getLike());
-                preparedStatement.execute();
-            } catch (SQLException e) {
-                return con;
-            }
-            return con;
         });
     }
 
@@ -88,29 +71,6 @@ public class UserDaoSQL {
         });
     }
 
-    public List<Message> getMessagesBetweenTwoUsers(Long idFirstUser, Long idSecondUser) {
-        List<Message> usersMessages = new ArrayList<>();
-        connection.map(con -> {
-            try {
-                PreparedStatement preparedStatement = con.prepareStatement(
-                        "SELECT id, id_from_user, id_to_user, text, time FROM messages m WHERE m.id_from_user = ? AND m.id_to_user = ? " +
-                                "OR m.id_to_user = ? AND m.id_from_user = ? ORDER BY m.time");
-                preparedStatement.setLong(1, idFirstUser);
-                preparedStatement.setLong(2, idSecondUser);
-                preparedStatement.setLong(3, idFirstUser);
-                preparedStatement.setLong(4, idSecondUser);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()) {
-                    usersMessages.add(Message.resultSetToMessage(resultSet));
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            return con;
-        });
-        return usersMessages;
-    }
-
     public Optional<User> findUserByEmail(String email) {
         return connection.flatMap(con -> {
             try {
@@ -128,18 +88,5 @@ public class UserDaoSQL {
         });
     }
 
-    public void addMessageBetweenTwoUsers(Long idFirstUser, Long idSecondUser, String message) {
-        connection.map(con -> {
-            try {
-                PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO public.messages (id_from_user, id_to_user, text) VALUES (?, ?, ?)");
-                preparedStatement.setLong(1, idFirstUser);
-                preparedStatement.setLong(2, idSecondUser);
-                preparedStatement.setString(3, message);
-                preparedStatement.execute();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            return con;
-        });
-    }
+
 }
