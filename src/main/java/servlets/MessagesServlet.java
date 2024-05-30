@@ -48,6 +48,7 @@ public class MessagesServlet extends HttpServlet {
         System.out.println(someText + " " + userId);
         someText.map(text -> {
             messageDaoSQL.addMessageBetweenTwoUsers(sessionUser.getId(), userId, text);
+            System.out.println(text);
             return text;
         });
         resp.sendRedirect("/messages/" + userId);
