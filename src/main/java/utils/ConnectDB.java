@@ -26,8 +26,11 @@ public class ConnectDB {
             Properties properties = new Properties();
             properties.put("user", username);
             properties.put("password", password);
-
-            return Optional.ofNullable(new Driver().connect(url, properties));
+            Optional <Connection> connect = Optional.ofNullable(new Driver().connect(url, properties));
+            if (connect.isPresent()) {
+                connect.get().setAutoCommit(true);
+            }
+            return connect;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return Optional.empty();
